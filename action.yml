@@ -1,0 +1,17 @@
+name: 'pr-glob-exclude'
+description: 'Auto-closes PRs against parts of your codebase'
+author: 'Amazon.com, Inc. or its affiliates.'
+inputs:
+  exclude-regex:
+    required: true
+    description: 'regex of files to disallow PRs against'
+  repo-token:
+    required: true
+    description: 'token or PAT for access to the repo'
+    default: '${{ secrets.GITHUB_TOKEN }}'
+  message:
+    required: true
+    description: 'message to post on matchine PRs'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
