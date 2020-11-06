@@ -1,0 +1,17 @@
+name: "Check for unacceptable PR"
+on:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: aws-actions/pr-regex-exclude@<commit_sha>
+        with:
+          exclude-regex: '<your JS RegEx syntax here>'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          message: |
+                   Thank you for submitting this PR, but it appears that at least one file in this
+                   request is against a part of our codebase that does not accept pull requests.
+                   Please check the [contributing guide](./CONTRIBUTING.md) for more information.
+                   I am a bot; this action was performed automatically.
