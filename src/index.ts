@@ -21,9 +21,9 @@ async function run(): Promise<void> {
     }
 
     core.debug(
-      `processing diff from ${github.context.payload.pull_request.html_url}`
+      `processing diff from ${github.context.payload.pull_request.html_url}.diff`
     );
-    const fileList = await processDiff(url);
+    const fileList = await processDiff(`${url}.diff`);
     for (const file in fileList) {
       if (file.match(exemptRegex)) {
         core.debug(`${file} matched ${exemptRegex}`);
