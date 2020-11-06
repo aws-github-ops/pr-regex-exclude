@@ -74,11 +74,11 @@ function run() {
                 core.setFailed('Trigger not a pull request');
                 return;
             }
-            const url = 'https://patch-diff.githubusercontent.com/raw/' +
-                `${github.context.repo.owner}/${github.context.repo.repo}/pull/` +
-                `${github.context.payload.pull_request.number}.diff?token=${token}`;
+            const url = 'https://api.github.com/repos/' +
+                `${github.context.repo.owner}/${github.context.repo.repo}/pulls/` +
+                `${github.context.payload.pull_request.number}`;
             core.debug(`processing diff from ${url}`);
-            const fileList = yield process_diff_1.processDiffUrl(`${url}`);
+            const fileList = yield process_diff_1.processDiffUrl(`${url}`, token);
             for (const file in fileList) {
                 if (file.match(exemptRegex)) {
                     core.debug(`${file} matched ${exemptRegex}`);
@@ -115,9 +115,13 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.processDiffUrl = void 0;
 const parse = __webpack_require__(833);
 const node_fetch_1 = __webpack_require__(467);
-function processDiffUrl(htmlUrl) {
+function processDiffUrl(htmlUrl, token) {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield node_fetch_1.default(htmlUrl);
+        const headers = new node_fetch_1.Headers([
+            ['Accept', 'application/vnd.github.v3.diff'],
+            ['Authorization', `token ${token}`],
+        ]);
+        const response = yield node_fetch_1.default(htmlUrl, { headers: headers });
         if (response.status !== 200) {
             throw new Error(`Could not fetch diff file for PR: ${response.status}`);
         }

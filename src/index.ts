@@ -15,12 +15,12 @@ async function run(): Promise<void> {
     }
 
     const url =
-      'https://patch-diff.githubusercontent.com/raw/' +
-      `${github.context.repo.owner}/${github.context.repo.repo}/pull/` +
-      `${github.context.payload.pull_request.number}.diff?token=${token}`;
+      'https://api.github.com/repos/' +
+      `${github.context.repo.owner}/${github.context.repo.repo}/pulls/` +
+      `${github.context.payload.pull_request.number}`;
 
     core.debug(`processing diff from ${url}`);
-    const fileList = await processDiffUrl(`${url}`);
+    const fileList = await processDiffUrl(`${url}`, token);
     for (const file in fileList) {
       if (file.match(exemptRegex)) {
         core.debug(`${file} matched ${exemptRegex}`);
