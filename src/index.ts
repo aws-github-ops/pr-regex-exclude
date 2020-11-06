@@ -6,16 +6,16 @@ import {processDiffUrl} from './process-diff';
 async function run(): Promise<void> {
   try {
     const exemptRegex = new RegExp(core.getInput('exempt-regex'));
-    core.debug(`Got exemptRegex ${exemptRegex}`)
+    core.debug(`Got exemptRegex ${exemptRegex}`);
     const token = core.getInput('repo-token');
-    const message = core.getInput('message');
+    const message = core.getInput('message', {required: true});
     core.debug(`Got message ${message}`);
 
     if (github.context.payload.pull_request === undefined) {
       core.setFailed('Trigger not a pull request');
       return;
     }
-    if (message === undefined) {
+    if (message === 'undefined') {
       core.setFailed('You must provide a message to close PRs');
       return;
     }
