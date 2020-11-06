@@ -67,7 +67,7 @@ const process_diff_1 = __webpack_require__(901);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const exemptRegex = new RegExp(core.getInput('exempt-regex', { required: true }));
+            const exemptRegex = new RegExp(core.getInput('exclude-regex', { required: true }));
             const token = core.getInput('repo-token');
             const message = core.getInput('message', { required: true });
             if (github.context.payload.pull_request === undefined) {

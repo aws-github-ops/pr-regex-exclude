@@ -6,7 +6,7 @@ import {processDiffUrl} from './process-diff';
 async function run(): Promise<void> {
   try {
     const exemptRegex = new RegExp(
-      core.getInput('exempt-regex', {required: true})
+      core.getInput('exclude-regex', {required: true})
     );
     const token = core.getInput('repo-token');
     const message = core.getInput('message', {required: true});
