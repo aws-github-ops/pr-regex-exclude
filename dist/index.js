@@ -74,13 +74,11 @@ function run() {
                 core.setFailed('Trigger not a pull request');
                 return;
             }
-            const url = github.context.payload.pull_request.html_url;
-            if (url === undefined) {
-                core.setFailed('No html_url for pull_request');
-                return;
-            }
-            core.debug(`processing diff from ${url}.diff`);
-            const fileList = yield process_diff_1.processDiffUrl(`${url}.diff`, token);
+            const url = 'https://patch-diff.githubusercontent.com/raw/' +
+                `${github.context.repo.owner}/${github.context.repo.repo}/pull/` +
+                `${github.context.payload.pull_request.number}.diff?token=${token}`;
+            core.debug(`processing diff from ${url}`);
+            const fileList = yield process_diff_1.processDiffUrl(`${url}`);
             for (const file in fileList) {
                 if (file.match(exemptRegex)) {
                     core.debug(`${file} matched ${exemptRegex}`);
@@ -117,18 +115,11 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.processDiffUrl = void 0;
 const parse = __webpack_require__(833);
 const node_fetch_1 = __webpack_require__(467);
-function processDiffUrl(htmlUrl, token) {
+function processDiffUrl(htmlUrl) {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = token === undefined
-            ? yield node_fetch_1.default(htmlUrl)
-            : yield node_fetch_1.default(htmlUrl, {
-                headers: new node_fetch_1.Headers([['Authorization', `token ${token}`]]),
-            });
+        const response = yield node_fetch_1.default(htmlUrl);
         if (response.status !== 200) {
-            console.log(response.status);
-            console.log(response.statusText);
-            console.log(`364866${token}468124`);
-            throw new Error('Could not fetch diff file for PR');
+            throw new Error(`Could not fetch diff file for PR: ${response.status}`);
         }
         const diff = yield response.text();
         const files = parse(diff);

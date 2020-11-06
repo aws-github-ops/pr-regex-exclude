@@ -14,14 +14,13 @@ async function run(): Promise<void> {
       return;
     }
 
-    const url = github.context.payload.pull_request.html_url;
-    if (url === undefined) {
-      core.setFailed('No html_url for pull_request');
-      return;
-    }
+    const url =
+      'https://patch-diff.githubusercontent.com/raw/' +
+      `${github.context.repo.owner}/${github.context.repo.repo}/pull/` +
+      `${github.context.payload.pull_request.number}.diff?token=${token}`;
 
-    core.debug(`processing diff from ${url}.diff`);
-    const fileList = await processDiffUrl(`${url}.diff`, token);
+    core.debug(`processing diff from ${url}`);
+    const fileList = await processDiffUrl(`${url}`);
     for (const file in fileList) {
       if (file.match(exemptRegex)) {
         core.debug(`${file} matched ${exemptRegex}`);
