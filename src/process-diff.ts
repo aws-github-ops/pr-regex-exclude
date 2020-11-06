@@ -1,7 +1,7 @@
 import * as parse from 'parse-diff';
 import fetch from 'node-fetch';
 
-export async function processDiff(htmlUrl: string): Promise<string[]> {
+export async function processDiffUrl(htmlUrl: string): Promise<string[]> {
   const response = await fetch(htmlUrl);
   if (response.status !== 200) {
     throw new Error('Could not fetch diff file for PR');

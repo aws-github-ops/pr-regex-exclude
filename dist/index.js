@@ -80,7 +80,7 @@ function run() {
                 return;
             }
             core.debug(`processing diff from ${github.context.payload.pull_request.html_url}.diff`);
-            const fileList = yield process_diff_1.processDiff(`${url}.diff`);
+            const fileList = yield process_diff_1.processDiffUrl(`${url}.diff&token=${token}`);
             for (const file in fileList) {
                 if (file.match(exemptRegex)) {
                     core.debug(`${file} matched ${exemptRegex}`);
@@ -114,10 +114,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.processDiff = void 0;
+exports.processDiffUrl = void 0;
 const parse = __webpack_require__(833);
 const node_fetch_1 = __webpack_require__(467);
-function processDiff(htmlUrl) {
+function processDiffUrl(htmlUrl) {
     return __awaiter(this, void 0, void 0, function* () {
         const response = yield node_fetch_1.default(htmlUrl);
         if (response.status !== 200) {
@@ -130,7 +130,7 @@ function processDiff(htmlUrl) {
             .filter((file) => file !== undefined);
     });
 }
-exports.processDiff = processDiff;
+exports.processDiffUrl = processDiffUrl;
 
 
 /***/ }),
