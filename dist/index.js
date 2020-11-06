@@ -80,7 +80,7 @@ function run() {
                 return;
             }
             core.debug(`processing diff from ${github.context.payload.pull_request.html_url}.diff`);
-            const fileList = yield process_diff_1.processDiffUrl(`${url}.diff&token=${token}`);
+            const fileList = yield process_diff_1.processDiffUrl(`${url}.diff`);
             for (const file in fileList) {
                 if (file.match(exemptRegex)) {
                     core.debug(`${file} matched ${exemptRegex}`);
@@ -117,9 +117,13 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.processDiffUrl = void 0;
 const parse = __webpack_require__(833);
 const node_fetch_1 = __webpack_require__(467);
-function processDiffUrl(htmlUrl) {
+function processDiffUrl(htmlUrl, token) {
     return __awaiter(this, void 0, void 0, function* () {
-        const response = yield node_fetch_1.default(htmlUrl);
+        const response = token === undefined
+            ? yield node_fetch_1.default(htmlUrl)
+            : yield node_fetch_1.default(htmlUrl, {
+                headers: new node_fetch_1.Headers([['Authorization', `token ${token}`]]),
+            });
         if (response.status !== 200) {
             throw new Error('Could not fetch diff file for PR');
         }

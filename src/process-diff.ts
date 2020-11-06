@@ -1,8 +1,16 @@
 import * as parse from 'parse-diff';
-import fetch from 'node-fetch';
+import fetch, {Headers} from 'node-fetch';
 
-export async function processDiffUrl(htmlUrl: string): Promise<string[]> {
-  const response = await fetch(htmlUrl);
+export async function processDiffUrl(
+  htmlUrl: string,
+  token?: string
+): Promise<string[]> {
+  const response =
+    token === undefined
+      ? await fetch(htmlUrl)
+      : await fetch(htmlUrl, {
+          headers: new Headers([['Authorization', `token ${token}`]]),
+        });
   if (response.status !== 200) {
     throw new Error('Could not fetch diff file for PR');
   }
