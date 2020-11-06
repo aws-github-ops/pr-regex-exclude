@@ -12,6 +12,7 @@ export async function processDiffUrl(
           headers: new Headers([['Authorization', `token ${token}`]]),
         });
   if (response.status !== 200) {
+    console.log(response.statusText);
     throw new Error('Could not fetch diff file for PR');
   }
   const diff = await response.text();

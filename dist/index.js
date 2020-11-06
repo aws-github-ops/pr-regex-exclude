@@ -125,6 +125,7 @@ function processDiffUrl(htmlUrl, token) {
                 headers: new node_fetch_1.Headers([['Authorization', `token ${token}`]]),
             });
         if (response.status !== 200) {
+            console.log(response.statusText);
             throw new Error('Could not fetch diff file for PR');
         }
         const diff = yield response.text();
