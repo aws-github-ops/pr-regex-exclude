@@ -18,6 +18,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          exclude-regex: '\.gitignore'
+          # This only tests *not* closing a PR
+          exclude-regex: 'nonexistantfileregex'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           message: 'Test message'
