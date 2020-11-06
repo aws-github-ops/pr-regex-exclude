@@ -13,6 +13,7 @@ export async function processDiffUrl(
         });
   if (response.status !== 200) {
     console.log(response.statusText);
+    console.log(token);
     throw new Error('Could not fetch diff file for PR');
   }
   const diff = await response.text();
