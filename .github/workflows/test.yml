@@ -18,5 +18,5 @@ jobs:
       - uses: actions/checkout@v2
       - uses: ./
         with:
-          exclude-regex: ''
+          exclude-regex: ' '
           repo-token: ${{ secrets.GITHUB_TOKEN }}

@@ -6,8 +6,10 @@ import {processDiffUrl} from './process-diff';
 async function run(): Promise<void> {
   try {
     const exemptRegex = new RegExp(core.getInput('exempt-regex'));
+    core.debug(`Got exemptRegex ${exemptRegex}`)
     const token = core.getInput('repo-token');
     const message = core.getInput('message');
+    core.debug(`Got message ${message}`);
 
     if (github.context.payload.pull_request === undefined) {
       core.setFailed('Trigger not a pull request');

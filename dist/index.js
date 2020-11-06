@@ -68,8 +68,10 @@ function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const exemptRegex = new RegExp(core.getInput('exempt-regex'));
+            core.debug(`Got exemptRegex ${exemptRegex}`);
             const token = core.getInput('repo-token');
             const message = core.getInput('message');
+            core.debug(`Got message ${message}`);
             if (github.context.payload.pull_request === undefined) {
                 core.setFailed('Trigger not a pull request');
                 return;
