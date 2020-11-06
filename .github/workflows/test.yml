@@ -19,3 +19,4 @@ jobs:
       - uses: ./
         with:
           exclude-regex: ''
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
