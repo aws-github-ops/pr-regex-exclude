@@ -2383,10 +2383,10 @@ growly@^1.3.0:
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
   integrity sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=
 
-gts@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/gts/-/gts-3.0.1.tgz#0670544ca7287c80dba85cf4e1625c898a70d90c"
-  integrity sha512-A2ysCoDNgXrPFa7snU4v9Jrll1NG266eVifo1s4bvweScHvsHWIShXpZbvNqxsOEtW+IFmrpGd/yYnpPXTw7zw==
+gts@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/gts/-/gts-3.0.2.tgz#a13ec9c0abdfaa718f57968f6cb74bf405f9472f"
+  integrity sha512-Vhy9/ToD7B8nlPIiNyBfeLwMCRb9Xw1eMh6lRu4/Th2ifMO/Tbi8q8GsqB975NMiHIkmsDTPki5d2x84WcUmgA==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^4.2.0"
     "@typescript-eslint/parser" "^4.2.0"
