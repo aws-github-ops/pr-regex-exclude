@@ -1,27 +1,29 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
 import {closeAndCommentPR} from './close-and-comment';
-import {processDiff} from './process-diff';
+import {processDiffUrl} from './process-diff';
 
 async function run(): Promise<void> {
   try {
-    const exemptRegex = new RegExp(core.getInput('exempt-regex'));
+    const exemptRegex = new RegExp(
+      core.getInput('exclude-regex', {required: true})
+    );
     const token = core.getInput('repo-token');
-    const message = core.getInput('message');
+    const message = core.getInput('message', {required: true});
 
     if (github.context.payload.pull_request === undefined) {
       core.setFailed('Trigger not a pull request');
       return;
     }
 
-    const url = github.context.payload.pull_request.html_url;
-    if (url === undefined) {
-      core.setFailed('No html_url for pull_request');
-      return;
-    }
+    const url =
+      'https://api.github.com/repos/' +
+      `${github.context.repo.owner}/${github.context.repo.repo}/pulls/` +
+      `${github.context.payload.pull_request.number}`;
 
-    const fileList = await processDiff(url);
-    for (const file in fileList) {
+    core.debug(`processing diff from ${url}`);
+    const fileList = await processDiffUrl(`${url}`, token);
+    for (const file of fileList) {
       if (file.match(exemptRegex)) {
         core.debug(`${file} matched ${exemptRegex}`);
         await closeAndCommentPR(
