@@ -79,6 +79,7 @@ function run() {
                 core.setFailed('No html_url for pull_request');
                 return;
             }
+            core.debug(`processing diff from ${github.context.payload.pull_request.html_url}`);
             const fileList = yield process_diff_1.processDiff(url);
             for (const file in fileList) {
                 if (file.match(exemptRegex)) {
