@@ -67,21 +67,11 @@ const process_diff_1 = __webpack_require__(901);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const exemptRegex = new RegExp(core.getInput('exempt-regex'));
-            core.debug(`Got exemptRegex ${exemptRegex}`);
+            const exemptRegex = new RegExp(core.getInput('exempt-regex', { required: true }));
             const token = core.getInput('repo-token');
             const message = core.getInput('message', { required: true });
-            core.debug(`Got message ${message}`);
             if (github.context.payload.pull_request === undefined) {
                 core.setFailed('Trigger not a pull request');
-                return;
-            }
-            if (message === 'undefined') {
-                core.setFailed('You must provide a message to close PRs');
-                return;
-            }
-            if (exemptRegex === undefined) {
-                core.setFailed('You must provide a regex for file exemption');
                 return;
             }
             const url = 'https://api.github.com/repos/' +
@@ -89,7 +79,7 @@ function run() {
                 `${github.context.payload.pull_request.number}`;
             core.debug(`processing diff from ${url}`);
             const fileList = yield process_diff_1.processDiffUrl(`${url}`, token);
-            for (const file in fileList) {
+            for (const file of fileList) {
                 if (file.match(exemptRegex)) {
                     core.debug(`${file} matched ${exemptRegex}`);
                     yield close_and_comment_1.closeAndCommentPR(github.context.payload.pull_request.number, github.context.repo.owner, github.context.repo.repo, message, github.getOctokit(token));

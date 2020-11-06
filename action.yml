@@ -7,10 +7,10 @@ inputs:
     description: 'regex of files to disallow PRs against'
   repo-token:
     required: true
-    description: 'token or PAT for access to the repo'
+    description: 'token or PAT for access to the repo (try secrets.GITHUB_TOKEN)'
   message:
     required: true
-    description: 'message to post on matchine PRs'
+    description: 'message to post on matching PRs'
 runs:
   using: 'node12'
   main: 'dist/index.js'

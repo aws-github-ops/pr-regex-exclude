@@ -20,3 +20,4 @@ jobs:
         with:
           exclude-regex: ' '
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          message: 'Test message'

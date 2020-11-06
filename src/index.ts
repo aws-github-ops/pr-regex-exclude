@@ -5,22 +5,14 @@ import {processDiffUrl} from './process-diff';
 
 async function run(): Promise<void> {
   try {
-    const exemptRegex = new RegExp(core.getInput('exempt-regex'));
-    core.debug(`Got exemptRegex ${exemptRegex}`);
+    const exemptRegex = new RegExp(
+      core.getInput('exempt-regex', {required: true})
+    );
     const token = core.getInput('repo-token');
     const message = core.getInput('message', {required: true});
-    core.debug(`Got message ${message}`);
 
     if (github.context.payload.pull_request === undefined) {
       core.setFailed('Trigger not a pull request');
-      return;
-    }
-    if (message === 'undefined') {
-      core.setFailed('You must provide a message to close PRs');
-      return;
-    }
-    if (exemptRegex === undefined) {
-      core.setFailed('You must provide a regex for file exemption');
       return;
     }
 
@@ -31,7 +23,7 @@ async function run(): Promise<void> {
 
     core.debug(`processing diff from ${url}`);
     const fileList = await processDiffUrl(`${url}`, token);
-    for (const file in fileList) {
+    for (const file of fileList) {
       if (file.match(exemptRegex)) {
         core.debug(`${file} matched ${exemptRegex}`);
         await closeAndCommentPR(
