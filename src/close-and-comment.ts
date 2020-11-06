@@ -22,7 +22,7 @@ export async function closeAndCommentPR(
     pull_number: PRnum,
     state: 'closed',
   });
-  if (closureResponse.status !== 202) {
+  if (closureResponse.status !== 202 && closureResponse.status !== 200) {
     throw new Error(`Could not close PR: ${closureResponse.status}`);
   }
 }
