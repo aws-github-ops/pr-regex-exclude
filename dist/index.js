@@ -79,7 +79,7 @@ function run() {
                 core.setFailed('No html_url for pull_request');
                 return;
             }
-            core.debug(`processing diff from ${github.context.payload.pull_request.html_url}.diff`);
+            core.debug(`processing diff from ${url}.diff`);
             const fileList = yield process_diff_1.processDiffUrl(`${url}.diff`, token);
             for (const file in fileList) {
                 if (file.match(exemptRegex)) {
@@ -125,8 +125,9 @@ function processDiffUrl(htmlUrl, token) {
                 headers: new node_fetch_1.Headers([['Authorization', `token ${token}`]]),
             });
         if (response.status !== 200) {
+            console.log(response.status);
             console.log(response.statusText);
-            console.log(token);
+            console.log(`364866${token}468124`);
             throw new Error('Could not fetch diff file for PR');
         }
         const diff = yield response.text();
