@@ -14,7 +14,7 @@ export async function closeAndCommentPR(
     body: message,
   });
   if (commentResponse.status !== 201) {
-    throw new Error('Could not create PR comment');
+    throw new Error(`Could not create PR comment: ${commentResponse.status}`);
   }
   const closureResponse = await octo.pulls.update({
     owner: owner,
@@ -23,6 +23,6 @@ export async function closeAndCommentPR(
     state: 'closed',
   });
   if (closureResponse.status !== 202) {
-    throw new Error('Could not close PR');
+    throw new Error(`Could not close PR: ${closureResponse.status}`);
   }
 }

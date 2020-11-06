@@ -27,7 +27,7 @@ function closeAndCommentPR(PRnum, owner, repo, message, octo) {
             body: message,
         });
         if (commentResponse.status !== 201) {
-            throw new Error('Could not create PR comment');
+            throw new Error(`Could not create PR comment: ${commentResponse.status}`);
         }
         const closureResponse = yield octo.pulls.update({
             owner: owner,
@@ -36,7 +36,7 @@ function closeAndCommentPR(PRnum, owner, repo, message, octo) {
             state: 'closed',
         });
         if (closureResponse.status !== 202) {
-            throw new Error('Could not close PR');
+            throw new Error(`Could not close PR: ${closureResponse.status}`);
         }
     });
 }
