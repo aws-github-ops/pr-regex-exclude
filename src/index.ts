@@ -20,6 +20,9 @@ async function run(): Promise<void> {
       return;
     }
 
+    core.debug(
+      `processing diff from ${github.context.payload.pull_request.html_url}`
+    );
     const fileList = await processDiff(url);
     for (const file in fileList) {
       if (file.match(exemptRegex)) {
