@@ -80,7 +80,7 @@ function run() {
                 return;
             }
             core.debug(`processing diff from ${github.context.payload.pull_request.html_url}.diff`);
-            const fileList = yield process_diff_1.processDiffUrl(`${url}.diff`);
+            const fileList = yield process_diff_1.processDiffUrl(`${url}.diff`, token);
             for (const file in fileList) {
                 if (file.match(exemptRegex)) {
                     core.debug(`${file} matched ${exemptRegex}`);
