@@ -10,13 +10,14 @@ jobs:
         with:
           # You will need to specify a regular expression in the syntax here:
           # https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp
-          #
           # This is a string pattern, not a RegExp literal.
+          
           # GitHub does not support an array or list as inputs to actions, so
           # for multiple paths, either use the | (pipe) character, or specify 
-          # a JSON array of regular expressions:
+          # a JSON array of regular expressions. You must double-escape characters
+          # if you use a JSON array.
           # '(dist/(.*)\.js)|(\.editorconfig)'
-          # '["dist/(.*)\.js","\.editorconfig"]'
+          # '[ "dist/(.*)\\.js", "\\.editorconfig" ]'
           exclude-regex: '<your RegExp here>'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           message: |
