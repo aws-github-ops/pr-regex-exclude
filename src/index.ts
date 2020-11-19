@@ -2,14 +2,17 @@ import * as core from '@actions/core';
 import * as github from '@actions/github';
 import {closeAndCommentPR} from './close-and-comment';
 import {processDiffUrl} from './process-diff';
+import {parseRegex} from './regex';
 
 async function run(): Promise<void> {
   try {
-    const exemptRegex = new RegExp(
+    const exemptRegex = parseRegex(
       core.getInput('exclude-regex', {required: true})
     );
     const token = core.getInput('repo-token');
     const message = core.getInput('message', {required: true});
+
+    core.debug(`Your regex is ${exemptRegex}`);
 
     if (github.context.payload.pull_request === undefined) {
       core.setFailed('Trigger not a pull request');
