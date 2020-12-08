@@ -24,7 +24,7 @@
   "author": "Tom Keller <kellertk@amazon.com>",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@types/jest": "^26.0.15",
+    "@types/jest": "^26.0.17",
     "@types/node": "^14.14.8",
     "@types/node-fetch": "^2.5.7",
     "gts": "^3.0.2",
