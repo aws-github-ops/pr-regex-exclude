@@ -4,6 +4,7 @@
   "private": true,
   "description": "Auto-closes PRs against parts of your codebase",
   "main": "build/index.js",
+  "type": "module",
   "scripts": {
     "check": "gts check",
     "clean": "gts clean",
