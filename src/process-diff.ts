@@ -1,5 +1,6 @@
 import * as parse from 'parse-diff';
-import fetch, {Headers} from 'node-fetch';
+const fetch = require('node-fetch');
+import {Headers} from 'node-fetch';
 
 export async function processDiffUrl(
   htmlUrl: string,
