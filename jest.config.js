@@ -6,6 +6,7 @@ module.exports = {
   testRunner: 'jest-circus/runner',
   transform: {
     '^.+\\.ts$': 'ts-jest',
+    "^.+\\.(js)$": "babel-jest",
   },
   verbose: true,
 };
