@@ -5,6 +5,7 @@
     "outDir": "./build",
     "rootDir": "./src",
     "strict": true,
+    "useUnknownInCatchVariables": false,
     "noImplicitAny": true
   },
   "exclude": ["node_modules", "**/*.test.ts"]
