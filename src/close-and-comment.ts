@@ -1,13 +1,13 @@
-import {GitHub} from '@actions/github/lib/utils';
+import * as github from '@actions/github';
 
 export async function closeAndCommentPR(
   PRnum: number,
   owner: string,
   repo: string,
   message: string,
-  octo: InstanceType<typeof GitHub>
+  octo: ReturnType<typeof github.getOctokit>
 ): Promise<void> {
-  const commentResponse = await octo.issues.createComment({
+  const commentResponse = await octo.rest.issues.createComment({
     owner: owner,
     repo: repo,
     issue_number: PRnum,
@@ -16,7 +16,7 @@ export async function closeAndCommentPR(
   if (commentResponse.status !== 201) {
     throw new Error(`Could not create PR comment: ${commentResponse.status}`);
   }
-  const closureResponse = await octo.pulls.update({
+  const closureResponse = await octo.rest.pulls.update({
     owner: owner,
     repo: repo,
     pull_number: PRnum,
