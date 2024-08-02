@@ -1,4 +1,7 @@
-# Pull Request Exclusion Action for GitHub Actions
+# This repository is archived.
+
+
+## Pull Request Exclusion Action for GitHub Actions
 
 Sometimes, you don't want to accept pull requests on GitHub against some parts
 of your code. This GitHub action accepts a regular expression as an argument,
